@@ -33,7 +33,7 @@ function weibo_super(name, super_id) {
     let super_url = {
         url: "https://weibo.com/p/aj/general/button?ajwvr=6&api=http://i.huati.weibo.com/aj/super/checkin&texta=%E7%AD%BE%E5%88%B0&textb=%E5%B7%B2%E7%AD%BE%E5%88%B0&status=0&id=" + super_id + "&location=page_100808_super_index&timezone=GMT+0800&lang=zh-cn&plat=MacIntel&ua=Mozilla/5.0%20(Macintosh;%20Intel%20Mac%20OS%20X%2010_15)%20AppleWebKit/605.1.15%20(KHTML,%20like%20Gecko)%20Version/13.0.4%20Safari/605.1.15&screen=375*812&__rnd=1576850070506",
         headers: {        
-            Cookie: $prefs.valueForKey("super_cookie"),
+            Cookie: $prefs.valueForKey("Cookie: SCF=AvL7jllokXeD-DORW8lr7qgei-6gwBd8mPYj3VXLabozR7qSDYPy9nx-HCtLakqhHzVHV5lBDYkDw3wjWkh0N7w.; SSOLoginState=1584490262; SUB=_2A25zdRdGDeRhGeNL6lcW8i7NzjWIHXVQmbkOrDV6PUJbkdAKLVXxkW1NSTGiwn4LX8-lo1ReOkKaQsVMD1epHdow; SUHB=0G0u6eu7zxIjrU; XSRF-TOKEN=51a463; MLOGIN=0; M_WEIBOCN_PARAMS=luicode%3D20000174%26uicode%3D10000011%26fid%3D102803; WEIBOCN_FROM=1110003030; _T_WM=60052311831"),
             }
     };
 
