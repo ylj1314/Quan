@@ -1,6 +1,6 @@
 
 //Thirdparty
-HOST-KEYWORD,inmobi
+HOST-KEYWORD,inmobi,REJECT
 HOST,app.adjust.com
 HOST-KEYWORD,adsystem
 HOST-KEYWORD,appsflyer
