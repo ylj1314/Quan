@@ -1,0 +1,11 @@
+#自用获取cookie，nobyda脚本
+#52破解签到
+https:\/\/www\.52pojie\.cn\/home\.php\? url script-request-header https://raw.githubusercontent.com/NobyDa/Script/master/52pojie-DailyBonus/52pojie.js
+#哔哩哔哩漫画签到
+https:\/\/manga\.bilibili\.com\/.*\.User\/GetWallet url script-request-header https://raw.githubusercontent.com/NobyDa/Script/master/Bilibili-DailyBonus/Manga.js
+#京东签到
+https:\/\/api\.m\.jd\.com\/client\.action.*functionId=signBean url script-request-header https://raw.githubusercontent.com/NobyDa/Script/master/JD-DailyBonus/JD_DailyBonus.js
+#爱奇艺
+https?:\/\/.*\.iqiyi\.com\/.*authcookie= url script-request-header https://raw.githubusercontent.com/NobyDa/Script/master/iQIYI-DailyBonus/iQIYI.js
+
+hostname= www.52pojie.cn, manga.bilibili.com, api.m.jd.com, *.iqiyi.com
