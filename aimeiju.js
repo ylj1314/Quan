@@ -1,14 +1,5 @@
 /* 
-#爱美剧
-hostname = *.*.com
 
-#启动广告/弹窗
-^http(s)://\w+.\w+.com/index.php/app/ios/ads/index url reject-dict
-^http(s)://\w+.\w+.com/index.php/app/ios/ver/index_ios$ url reject
-^http(s)://\w+.\w+.com/index.php/app/ios/pay/ok$ url reject-dict
-
-#VIP
-^http(s)://\w+.\w+.com/index.php/app/ios/(vod\/show|(user|vod|topic|type)/index) url script-response-body
 */
 var body = $response.body;
 var url = $request.url;
