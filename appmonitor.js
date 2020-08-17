@@ -3,8 +3,8 @@
 //30 7-22/1 * * * own/quantumultx/task/appmonitor.js
 
 console.log("APP监控运行")
-let apps=["1443988620","350962117","414478124","1314212521","444934666","932747118","1116905928","1062022008","1116905928","504001448"]//app跟踪id
-let reg="cn"//区域：美国us 中国cn 香港hk
+let apps=["1443988620","350962117","414478124","1314212521","444934666","932747118","1457369322","1018355599"]//app跟踪id
+let reg="us"//区域：美国us 中国cn 香港hk
 let config={
   url:'https://itunes.apple.com/lookup?id=' + apps + "&country=" + reg,
   method:"post"
