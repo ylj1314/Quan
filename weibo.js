@@ -8,7 +8,7 @@
 5.非专业人士制作，欢迎各位大佬提出宝贵意见和指导
 6.4月23日更新，更换微博签到Cookie,随时能获取，获取后请禁用
 仅测试Quantumult x，Surge、Loon自行测试
-by Macsuny
+by M
 
 ~~~~~~~~~~~~~~~~
 Surge 4.0 :
