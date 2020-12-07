@@ -20,20 +20,8 @@ Author: zZPiglet
 
 ----------
 更新日志：
-- 2020/08/01：
-更新接口 v2 -> v3。
-账户接口地址更新。
-
-更新日志：
-- 2020/07/10：
-更新接口 v1 -> v2。
-账户接口地址更新。
-
-- 2020/06/22：
-更新接口 v2 -> v1。
-
 - 2020/04/15：
-更新任务接口。
+更新任务接口，更新开奖判断，更新 token 是否有效判断。
 修改部分细节。
 
 - 2020/04/09：
@@ -99,41 +87,22 @@ hostname = api-hdcj.9w9.com
 
 
 //填入想要自动兑换的金额，默认 50。若不需要请改为 0。
-const exchangeMoney = 0 //5, 20, 0
+const exchangeMoney = 50 //5, 20, 0
 
 const mainURL = 'https://api-hdcj.9w9.com/v2/'
 const CheckinURL = mainURL + 'sign/sign'
 const CheckindataURL = mainURL + 'sign'
-const DataURL = mainURL + 'index/informations'
-const IndexURL = mainURL + 'index?gzh_number=&type=0'
+const DataURL = mainURL + 'informations'
+const IndexURL = mainURL + 'index?type=0&gzh_number='
 const Index2URL = mainURL + 'index?type=1'
 const LotteryURL = mainURL + 'lotteries/'
 const CouponURL = mainURL + 'coupons/'
-// const ExchangeURL = mainURL + 'limit_red_envelopes/'
-const ExchangeURL = mainURL + 'mall/redEnvelopeList'
-const objList = [
-    {
-    price_key : "20",
-    id:453,
-    },
-    {
-        price_key : "500",
-        id:543,
-    },
-    {
-        price_key : "8000",
-        id:455,
-    },
-    {
-        price_key : "12000",
-        id:52,
-    },
-]
+const ExchangeURL = mainURL + 'limit_red_envelopes/'
 const GetTaskURL = mainURL + 'task'
 const TaskURL = mainURL + 'tasks/'
 const WinURL = mainURL + 'users/list/2'
 const ShareURL = mainURL + 'share_lucky_get'
-const LuckyGiftURL = mainURL + 'lotteries/index/luckyGift'
+const LuckyGiftURL = mainURL + 'lucky_gift'
 const TokenName = '活动抽奖'
 const TokenKey = 'wclotterynew'
 const UidKey = 'wcluid'
@@ -182,8 +151,6 @@ function GetToken() {
                 } else {
                     $cmp.notify("更新" + TokenName + " Token 成功 🎉", "", "")
                 }
-            }else{
-                $cmp.notify(TokenName, "已存在相同cookie，未更新", "")
             }
         } else {
             var token = $cmp.write(TokenKeyValue, TokenKey);
@@ -210,14 +177,18 @@ function Valid() {
             try {
                 if (response.status == 200) {
                     const obj = JSON.parse(data)
-                    datainfo.exchangeId = 52
-                    datainfo.exchangeStatus = obj.data.user_info.lucky_count >= 12000 ? true : false
-                    if (exchangeMoney == 5) {
-                        datainfo.exchangeId = 454
-                        datainfo.exchangeStatus = obj.data.user_info.lucky_count >= 2500 ? true : false
-                    } else if (exchangeMoney == 20) {
-                        datainfo.exchangeId = 455
-                        datainfo.exchangeStatus = obj.data.user_info.lucky_count >= 8000 ? true : false
+                    if (obj.data.user_info.uname) {
+                        datainfo.exchangeId = 52
+                        datainfo.exchangeStatus = obj.data.user_info.lucky_count >= 12000 ? true : false
+                        if (exchangeMoney == 5) {
+                            datainfo.exchangeId = 454
+                            datainfo.exchangeStatus = obj.data.user_info.lucky_count >= 2500 ? true : false
+                        } else if (exchangeMoney == 20) {
+                            datainfo.exchangeId = 455
+                            datainfo.exchangeStatus = obj.data.user_info.lucky_count >= 8000 ? true : false
+                        }
+                    } else {
+                        ValidToken = false
                     }
                 } else {
                     ValidToken = false
@@ -243,7 +214,7 @@ function Checkin() {
         $cmp.get(LotteryCheckin, function(error, response, data) {
             try{
                 if (error) {
-                    datainfo.code = 1
+                    datainfo.error = 1
                     datainfo.errormessage = error
                 } else {
                     datainfo.checkin = JSON.parse(data)
@@ -257,8 +228,8 @@ function Checkin() {
                     $cmp.get(LotteryCheckindata, function(error, response, data) {
                         try{
                             const checkindata = JSON.parse(data)
-                            let day = checkindata.data.sign_info.cycle
-                            datainfo.luckcoin = checkindata.data.sign_info.sign_lucky[day - 1]
+                            let day = checkindata.data.cycle
+                            datainfo.luckcoin = checkindata.data.sign_lucky[day - 1]
                             resolve('done')
                         } catch (e) {
                             $cmp.notify("活动抽奖签到结果" + e.name + "‼️", JSON.stringify(e), e.message)
@@ -297,10 +268,9 @@ function Join() {
         datainfo.skipedCnt = 0
         datainfo.failCnt = 0
         $cmp.get(LotteryIndex, function(error, response, data) {
-
             try{
                 const index = JSON.parse(data)
-                let list = index.data.recommended_welfare
+                let list = index.data.mr_data
                 for (var l of list) {
                     let lname = l.sponsor_name
                     if (l.join_status == true) {
@@ -330,15 +300,15 @@ function Join() {
                 }
                 resolve('done')
             } catch (e) {
-                $cmp.notify("活动抽奖获取抽奖列表1" + e.name + "‼️", JSON.stringify(e), e.message)
+                $cmp.notify("活动抽奖获取抽奖列表" + e.name + "‼️", JSON.stringify(e), e.message)
                 resolve('done')
             }
         })
         $cmp.get(LotteryLuckGift, function(error, response, data) {
             try{
                 const luckgiftindex = JSON.parse(data)
-                let newlg = luckgiftindex.data.red_packet_data[0]
-                datainfo.winluckgift = luckgiftindex.data.red_packet_data[1].id;
+                let newlg = luckgiftindex.data.hb_data[0]
+                datainfo.winluckgift = luckgiftindex.data.hb_data[1].id
                 const LotteryJoin = {
                     url: LotteryURL + newlg.id + '/join',
                     headers:  commonheaders,
@@ -365,7 +335,7 @@ function Join() {
         $cmp.get(LotteryIndex2, function(error, response, data) {
             try{
                 const index = JSON.parse(data)
-                let list = index.data.self_help_welfare
+                let list = index.data.tj_data
                 for (var l of list) {
                     let lname = l.sponsor_name
                     if (l.join_status == true) {
@@ -521,7 +491,7 @@ function Win() {
                 const win = JSON.parse(data)
                 let winlist = win.data.data
                 for (var winl of winlist) {
-                    if (winl.sponsor_name == '活动抽奖福利君') {
+                    if (winl.lname == '瓜分5万元现金红包大奖') {
                         const LotteryWin = {
                             url: LotteryURL + winl.id + '/split',
                             headers:  commonheaders
