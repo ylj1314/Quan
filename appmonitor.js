@@ -49,6 +49,7 @@ $task.fetch(config).then((res)=>{
     else{
       console.log("APP监控：版本及价格无变化")
     }
+    $done()
   }
 })
 function notify(notifys){
