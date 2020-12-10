@@ -55,4 +55,5 @@ function notify(notifys){
   notifys=notifys.join("\n")
   console.log(notifys)
   $notify("APP监控","",notifys)
+  $done()
 }
