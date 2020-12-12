@@ -29,7 +29,7 @@ function sign() {
       }
       chen.msg(title, subTitle, detail)
     })
-    chen.done()
+    
     }
 
   function init() {
@@ -75,4 +75,5 @@ function sign() {
     }
     return { isSurge, isQuanX, msg, log, getdata, setdata, get, post, done }
   }
+  chen.done()
   
