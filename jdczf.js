@@ -28,6 +28,7 @@ function sign() {
         detail = `说明: ${result.resultrMsg}`
       }
       chen.msg(title, subTitle, detail)
+      chen.done()
     })
     
     }
@@ -75,6 +76,6 @@ function sign() {
     }
     return { isSurge, isQuanX, msg, log, getdata, setdata, get, post, done }
   }
-  chen.done()
+  chen.done
   
   

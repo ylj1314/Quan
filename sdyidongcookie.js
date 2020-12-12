@@ -15,7 +15,7 @@ function init() {
   }
   isQuanX = () => {
     return undefined === this.$task ? false : true
-  }
+  }q
   getdata = (key) => {
     if (isSurge()) return $persistentStore.read(key)
     if (isQuanX()) return $prefs.valueForKey(key)
