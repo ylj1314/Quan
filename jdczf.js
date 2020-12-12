@@ -25,9 +25,10 @@ function sign() {
           subTitle = `签到结果: 失败,需要重新获得cookie`
       } else {
         subTitle = `签到结果: 未知`
-        detail = `说明: ${result.resultrMsg}`
+        detail = `说明: ${result.resultMsg}`
       }
       chen.msg(title, subTitle, detail)
+      console.log(`说明: ${result.resultMsg}`)
       chen.done()
     })
     
