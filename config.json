@@ -1,0 +1,18 @@
+{
+    "SCKEY": "",
+    "Stime": [0, 0],
+    "Cookies": [
+        {
+            "name": "ALC",
+            "value": "",
+            "domain": ".login.sina.com.cn"
+        },
+        {
+            "name": "ALF",
+            "value": "",
+            "domain": ".weibo.com"
+        }
+    ],
+    "C": "android",
+    "S": ""
+}
